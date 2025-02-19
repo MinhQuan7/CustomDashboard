@@ -1,5 +1,7 @@
 <html lang="en">
   <head>
+    <script src="https://www.unpkg.com/@eohjsc/era-widget@1.1.3/src/index.js"></script>
+
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Smart Home Dashboard</title>
@@ -384,14 +386,27 @@
         if (isLightOn) {
           lightingWidget.classList.add("light-on");
           lightingWidget.querySelector("p").textContent = "Living room - ON";
+          eraWidget.triggerAction(onLight.action, null);
         } else {
           lightingWidget.classList.remove("light-on");
           lightingWidget.querySelector("p").textContent = "Living room - OFF";
+          eraWidget.triggerAction(offLight.action, null);
         }
 
         // Hiển thị thông báo trạng thái
         const status = isLightOn ? "bật" : "tắt";
         console.log(`Đèn đã được ${status}`);
+      });
+      //================E-RA------------
+      const eraWidget = new EraWidget();
+      let onLight = null,
+        offLight = null;
+      eraWidget.init({
+        onConfiguration: (configuration) => {
+          onLight = configuration.actions[0];
+          offLight = configuration.actions[1];
+        },
+        onValues: (values) => {},
       });
     </script>
   </body>
