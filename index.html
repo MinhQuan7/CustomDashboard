@@ -386,11 +386,11 @@
         if (isLightOn) {
           lightingWidget.classList.add("light-on");
           lightingWidget.querySelector("p").textContent = "Living room - ON";
-          eraWidget.triggerAction(onLight.action, null);
+          eraWidget.triggerAction(onLight.action, null); //action ON
         } else {
           lightingWidget.classList.remove("light-on");
           lightingWidget.querySelector("p").textContent = "Living room - OFF";
-          eraWidget.triggerAction(offLight.action, null);
+          eraWidget.triggerAction(offLight.action, null); //action OFF
         }
 
         // Hiển thị thông báo trạng thái
