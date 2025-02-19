@@ -377,6 +377,18 @@
       </div>
     </div>
     <script>
+      //================E-RA------------
+      const eraWidget = new EraWidget();
+      let onLight = null,
+        offLight = null;
+      eraWidget.init({
+        onConfiguration: (configuration) => {
+          onLight = configuration.actions[0];
+          offLight = configuration.actions[1];
+        },
+        onValues: (values) => {},
+      });
+
       const lightingWidget = document.getElementById("lighting-widget");
       let isLightOn = false;
 
@@ -396,17 +408,6 @@
         // Hiển thị thông báo trạng thái
         const status = isLightOn ? "bật" : "tắt";
         console.log(`Đèn đã được ${status}`);
-      });
-      //================E-RA------------
-      const eraWidget = new EraWidget();
-      let onLight = null,
-        offLight = null;
-      eraWidget.init({
-        onConfiguration: (configuration) => {
-          onLight = configuration.actions[0];
-          offLight = configuration.actions[1];
-        },
-        onValues: (values) => {},
       });
     </script>
   </body>
