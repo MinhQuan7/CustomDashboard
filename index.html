@@ -376,7 +376,7 @@
         </div>
       </div>
     </div>
-    <script>
+    <!-- <script>
       //================E-RA------------
       const eraWidget = new EraWidget();
       let onLight = null,
@@ -408,6 +408,38 @@
         // Hiển thị thông báo trạng thái
         const status = isLightOn ? "bật" : "tắt";
         console.log(`Đèn đã được ${status}`);
+      });
+    </script> -->
+    <script>
+      eraWidget.init({
+        onConfiguration: (configuration) => {
+          onLight = configuration.actions[0];
+          offLight = configuration.actions[1];
+        },
+        onValues: (values) => {
+          // Nhận giá trị thực tế từ thiết bị
+          isLightOn = values.deviceStatus === "on"; // Giả sử giá trị trả về là 'on' hoặc 'off'
+          updateUI();
+        },
+      });
+
+      function updateUI() {
+        if (isLightOn) {
+          lightingWidget.classList.add("light-on");
+          lightingWidget.querySelector("p").textContent = "Living room - ON";
+        } else {
+          lightingWidget.classList.remove("light-on");
+          lightingWidget.querySelector("p").textContent = "Living room - OFF";
+        }
+      }
+
+      lightingWidget.addEventListener("click", () => {
+        // Chỉ gửi action, KHÔNG thay đổi UI ngay
+        const newStatus = !isLightOn;
+        eraWidget.triggerAction(
+          newStatus ? onLight.action : offLight.action,
+          null
+        );
       });
     </script>
   </body>
