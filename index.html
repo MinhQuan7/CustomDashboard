@@ -1,0 +1,398 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Smart Home Dashboard</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Roboto", sans-serif;
+        background-color: #1c1c1e;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        display: flex;
+        gap: 20px;
+      }
+      .sidebar,
+      .main,
+      .details {
+        background: rgba(28, 28, 30, 0.9);
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .sidebar {
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .sidebar img {
+        border-radius: 15px;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      .sidebar h2 {
+        font-size: 18px;
+        margin: 10px 0;
+      }
+      .sidebar p {
+        font-size: 14px;
+        color: #a1a1a1;
+      }
+      .sidebar .menu {
+        width: 100%;
+        margin-top: 20px;
+      }
+      .sidebar .menu a {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 10px;
+        margin-bottom: 10px;
+      }
+      .sidebar .menu a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .sidebar .menu a i {
+        margin-right: 10px;
+      }
+      .sidebar .language {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+      }
+      .sidebar .language img {
+        width: 20px;
+        margin-right: 10px;
+      }
+      .main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .main .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .main .header h1 {
+        font-size: 24px;
+      }
+      .main .header .date {
+        font-size: 14px;
+        color: #a1a1a1;
+      }
+      .main .tabs {
+        display: flex;
+        gap: 10px;
+        margin: 20px 0;
+      }
+      .main .tabs button {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        color: #fff;
+        cursor: pointer;
+      }
+      .main .tabs button.active {
+        background: #fff;
+        color: #000;
+      }
+      .main .overview {
+        display: flex;
+        gap: 20px;
+      }
+      .main .overview .card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 20px;
+        flex: 1;
+      }
+      .main .overview .card img {
+        width: 100%;
+        border-radius: 10px;
+      }
+      .main .overview .card h3 {
+        font-size: 18px;
+        margin: 10px 0;
+      }
+      .main .overview .card p {
+        font-size: 14px;
+        color: #a1a1a1;
+      }
+      .main .widgets {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .main .widgets .widget {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .main .widgets .widget h3 {
+        font-size: 18px;
+        margin: 10px 0;
+      }
+      .main .widgets .widget p {
+        font-size: 14px;
+        color: #a1a1a1;
+      }
+      .details {
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .details img {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+      .details .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .details .actions button {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        color: #fff;
+        cursor: pointer;
+      }
+      .details .actions button.active {
+        background: #00f0ff;
+        color: #000;
+      }
+      .details .stats {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .details .stats .stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .details .stats .stat h3 {
+        font-size: 18px;
+        margin: 10px 0;
+      }
+      .details .stats .stat p {
+        font-size: 14px;
+        color: #a1a1a1;
+      }
+      @media (max-width: 1200px) {
+        .container {
+          flex-direction: column;
+          align-items: center;
+        }
+        .sidebar,
+        .main,
+        .details {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <img
+          alt="Profile picture of Yehor Haiduk"
+          height="150"
+          src="https://storage.googleapis.com/a1aa/image/QndCfVT2bdhT8HWNlFcTLOWEWA_rP_F2-L5eVDzAu14.jpg"
+          width="200"
+        />
+        <h2>Yehor Haiduk</h2>
+        <p>Vinnitsa, Donjenka 60</p>
+        <div class="menu">
+          <a href="#">
+            <i class="fas fa-home"> </i>
+            Home
+          </a>
+          <a href="#">
+            <i class="fas fa-door-open"> </i>
+            Rooms
+          </a>
+          <a href="#">
+            <i class="fas fa-shield-alt"> </i>
+            Security
+          </a>
+          <a href="#">
+            <i class="fas fa-video"> </i>
+            CCTV
+          </a>
+          <a href="#">
+            <i class="fas fa-calendar-alt"> </i>
+            Events
+          </a>
+          <a href="#">
+            <i class="fas fa-cogs"> </i>
+            Devices
+          </a>
+        </div>
+        <div class="language">
+          <img
+            alt="Flag of the United States"
+            height="20"
+            src="https://storage.googleapis.com/a1aa/image/RvSYDdSBZ3TXmprpX_5aYk4kPr8OlUiP-MXn44fFMOs.jpg"
+            width="20"
+          />
+          <span> English </span>
+        </div>
+      </div>
+      <div class="main">
+        <div class="header">
+          <div>
+            <h1>Welcome, Yehor</h1>
+            <p class="date">
+              <i class="fas fa-cloud-sun"> </i>
+              1 Feb 2020
+            </p>
+          </div>
+          <div>
+            <button>Add device</button>
+          </div>
+        </div>
+        <div class="tabs">
+          <button class="active">My home</button>
+          <button>Living room</button>
+          <button>Bathroom</button>
+          <button>Office</button>
+          <button>Kids room</button>
+          <button>Add</button>
+        </div>
+        <div class="overview">
+          <div class="card">
+            <img
+              alt="Air conditioner image"
+              height="100"
+              src="https://storage.googleapis.com/a1aa/image/mmVPmz_30JYJzd7Uh37ITZzVrNmh0PmBLbyXPs5exW8.jpg"
+              width="200"
+            />
+            <h3>Air conditioner</h3>
+            <p>76°Fahrenheit</p>
+          </div>
+          <div class="card">
+            <h3>Electric usage</h3>
+            <p>720 kwh</p>
+            <p>Sep 7 - Sep 19</p>
+          </div>
+          <div class="card">
+            <h3>Members</h3>
+            <img
+              alt="Members avatars"
+              height="50"
+              src="https://storage.googleapis.com/a1aa/image/2Y3QNde2dDbZpyyqqJ4208c9aKpIhSE9jq5SBWmZ7Yw.jpg"
+              width="200"
+            />
+          </div>
+        </div>
+        <div class="widgets">
+          <div class="widget">
+            <h3>Security</h3>
+            <p>6 rooms</p>
+          </div>
+          <div class="widgets">
+            <div class="widget">
+              <h3>Security</h3>
+              <p>6 rooms</p>
+            </div>
+            <div class="widget" id="lighting-widget">
+              <h3>Lighting</h3>
+              <p>Living room - 3 devices</p>
+              <div class="light-indicator"></div>
+            </div>
+            <div class="widget">
+              <h3>CCTV</h3>
+              <p>24.1 Mbit/s</p>
+            </div>
+            <div class="widget">
+              <h3>Internet</h3>
+              <p>24.1 Mbit/s</p>
+            </div>
+          </div>
+
+          <div class="widget">
+            <h3>CCTV</h3>
+            <p>24.1 Mbit/s</p>
+          </div>
+          <div class="widget">
+            <h3>Internet</h3>
+            <p>24.1 Mbit/s</p>
+          </div>
+        </div>
+      </div>
+      <div class="details">
+        <img
+          alt="Air conditioner image"
+          height="150"
+          src="https://storage.googleapis.com/a1aa/image/mmVPmz_30JYJzd7Uh37ITZzVrNmh0PmBLbyXPs5exW8.jpg"
+          width="300"
+        />
+        <div class="actions">
+          <button class="active">Cooling</button>
+          <button>Heating</button>
+          <button>Airwave</button>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <h3>Timer</h3>
+            <p>2 hours</p>
+          </div>
+          <div class="stat">
+            <h3>Humidity</h3>
+            <p>36%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const lightingWidget = document.getElementById("lighting-widget");
+      let isLightOn = false;
+
+      lightingWidget.addEventListener("click", () => {
+        isLightOn = !isLightOn;
+
+        if (isLightOn) {
+          lightingWidget.classList.add("light-on");
+          lightingWidget.querySelector("p").textContent = "Living room - ON";
+        } else {
+          lightingWidget.classList.remove("light-on");
+          lightingWidget.querySelector("p").textContent = "Living room - OFF";
+        }
+
+        // Hiển thị thông báo trạng thái
+        const status = isLightOn ? "bật" : "tắt";
+        console.log(`Đèn đã được ${status}`);
+      });
+    </script>
+  </body>
+</html>
